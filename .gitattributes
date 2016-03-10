@@ -1,1 +1,1 @@
-terraform.tfvars filter=awsKeys
+terraform.tfvars filter=awsSandboxKeys
