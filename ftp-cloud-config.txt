@@ -1,0 +1,13 @@
+#!/bin/bash
+yum update -y
+yum install -y docker
+service docker start
+usermod -a -G docker ec2-user
+mkdir -p /data/rawvideo/00000369
+mkdir -p /data/ftpservers/00000369
+chmod 777 -R /data
+docker run --name ftpserver369 -d -p 369:21 -p 30010-30019:30010-30019 -v /data/ftpservers/00000369:/home/ftpusers/joe -e "PASSIVEPORT_START=30010" -e "PASSIVEPORT_END=30019" -e "PUBLICHOST=ftp.sandbox-shoppertrak.com" joshuacalloway/ftpserver 
+yum install -y ftp
+yum install -y telnet
+
+echo "sixth i was here" > /home/ec2-user/iwashere.txt

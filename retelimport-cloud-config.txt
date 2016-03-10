@@ -1,0 +1,19 @@
+#cloud-config
+repo_update: true
+repo_upgrade: all
+
+packages:
+ - docker
+ - ftp
+ - telnet
+
+runcmd:
+  - service docker start
+  - [ sh, -c, "usermod -a -G docker ec2-user"]
+  - [ sh, -c, "mkdir -p /data/rawvideo/00000369"]
+  - [ sh, -c, "mkdir -p /data/ftpservers/00000369"]
+  - [ sh, -c, "chmod 777 -R /data"]
+  - [ sh, -c, 'docker run --name ftpserver369 -d -p 369:21 -p 30010-30019:30010-30019 -v /data/ftpservers/00000369:/home/ftpusers/joe -e "PASSIVEPORT_START=30010" -e "PASSIVEPORT_END=30019" -e "PUBLICHOST=retelimport.sandbox-shoppertrak.com" joshuacalloway/ftpserver']
+  - [ sh, -c, 'echo "seventh i was here" > /home/ec2-user/iwashere.txt']
+
+output : { all : '| tee -a /var/log/cloud-init-output.log' }

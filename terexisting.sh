@@ -1,0 +1,1 @@
+docker run --rm --name terraforming -e AWS_ACCESS_KEY_ID=AKIAICAHJSLXNF7LNDUQ -e AWS_SECRET_ACCESS_KEY=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 -e AWS_REGION=us-east-1 quay.io/dtan4/terraforming:latest terraforming vpc
